@@ -1,6 +1,11 @@
 import { createRoot } from "react-dom/client";
-import Home from "./components/home";
+import { AppProvider } from "./context";
+import Main from "./components/main";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
-root.render(<Home />);
+root.render(
+  <AppProvider>
+    <Main />
+  </AppProvider>
+);
