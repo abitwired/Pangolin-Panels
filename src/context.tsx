@@ -1,18 +1,23 @@
 import { createContext, useReducer } from "react";
-import { ContextBridge } from "electron";
-import { CoreApi } from "@kubernetes/client-node";
 
 export type AppContextType = {
-  electron: ContextBridge;
-  k8sApi: CoreApi | null;
+  k8s: {
+    client: {
+      status: "connected" | "connecting" | "disconnected";
+    };
+  };
 };
 
 const initialState: AppContextType = {
-  electron: window.electron,
-  k8sApi: null,
+  k8s: {
+    client: {
+      status: "disconnected",
+    },
+  },
 };
 
 export const AppContext = createContext(null);
+export const AppDispatchContext = createContext(null);
 
 /**
  * Reducer function to update the state based on the action
@@ -20,13 +25,17 @@ export const AppContext = createContext(null);
  * @param action The action to be performed
  * @returns The new state
  */
-function reducer(state: AppContextType, action: Action) {
+export function reducer(state: AppContextType, action: Action) {
   switch (action.type) {
-    case ActionTypes.SET_K8S_API: {
-      return { ...state, k8sApi: action.payload };
-    }
-    case ActionTypes.SET_ELECTRON: {
-      return { ...state, electron: action.payload };
+    case ActionTypes.K8S_CLIENT_STATUS: {
+      return {
+        ...state,
+        k8s: {
+          client: {
+            status: action.payload,
+          },
+        },
+      };
     }
     default: {
       throw Error("Unknown action");
@@ -42,19 +51,13 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-enum ActionTypes {
-  SET_K8S_API = "setK8sApi",
-  SET_ELECTRON = "setElectron",
+export enum ActionTypes {
+  K8S_CLIENT_STATUS,
 }
 
 interface SetK8sApiAction {
-  type: ActionTypes.SET_K8S_API;
-  payload: CoreApi;
+  type: ActionTypes.K8S_CLIENT_STATUS;
+  payload: AppContextType["k8s"]["client"]["status"];
 }
 
-interface SetElectronAction {
-  type: ActionTypes.SET_ELECTRON;
-  payload: ContextBridge;
-}
-
-type Action = SetK8sApiAction | SetElectronAction;
+type Action = SetK8sApiAction;

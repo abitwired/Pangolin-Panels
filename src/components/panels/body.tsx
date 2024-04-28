@@ -1,16 +1,29 @@
-import { useContext } from "react";
-import { AppContext, AppContextType } from "../../context";
+import { useContext, useReducer } from "react";
+import { ActionTypes, AppContext, reducer } from "../../context";
 import DisconnectedSvg from "../../assets/icons/disconnected";
+import { CoreV1Api } from "@kubernetes/client-node";
 
 export const Body = () => {
-  const context: AppContextType = useContext(AppContext);
+  const [context, dispatch] = useReducer(reducer, useContext(AppContext));
+  console.log(context.k8s);
 
   const getNamespaces = async () => {
-    const namespaces = await api.getNamespaces(context.k8sApi);
-    console.log(namespaces);
+    const namespaces = await api.getNamespaces();
   };
 
-  if (context.k8sApi === null) {
+  const connect = async () => {
+    dispatch({
+      type: ActionTypes.K8S_CLIENT_STATUS,
+      payload: "connecting",
+    });
+    const client = await api.connect();
+    dispatch({
+      type: ActionTypes.K8S_CLIENT_STATUS,
+      payload: client.status,
+    });
+  };
+
+  if (context.k8s.client.status === "disconnected") {
     // Show the user that they are not connected to the k8sApi
     console.log("Not connected to k8sApi");
     return (
@@ -24,7 +37,7 @@ export const Body = () => {
         <div className="flex justify-center content-center items-center gap-1">
           <button
             className="p-2 bg-blue-500 text-white rounded-md"
-            onClick={getNamespaces}
+            onClick={connect}
           >
             Connect
           </button>
@@ -33,5 +46,14 @@ export const Body = () => {
     );
   }
 
-  return <div className="p-2 justify-items-center w-screen h-screen"></div>;
+  return (
+    <div className="p-2 overflow-y-auto flex flex-col justify-center content-center items-center w-full h-screen">
+      <button
+        className="p-2 bg-blue-500 text-white rounded-md"
+        onClick={getNamespaces}
+      >
+        Namespaces
+      </button>
+    </div>
+  );
 };

@@ -1,5 +1,4 @@
-import { CoreApi } from "@kubernetes/client-node";
+import { CoreV1Api } from "@kubernetes/client-node";
 import { ipcRenderer } from "electron";
 
-export const getNamespaces = (k8sApi: CoreApi) =>
-  ipcRenderer.invoke("getNamespaces", k8sApi);
+export const getNamespaces = () => ipcRenderer.invoke("getNamespaces");
