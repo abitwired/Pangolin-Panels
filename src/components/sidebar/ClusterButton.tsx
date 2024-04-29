@@ -1,7 +1,5 @@
 import { Cluster, Context, User } from "@kubernetes/client-node";
-import { useReducer } from "react";
 import { ActionTypes, useAppContext } from "../../context";
-import { reducer } from "../../context";
 import { PangolinCluster } from "../../types/types";
 
 type ClusterButtonProps = {

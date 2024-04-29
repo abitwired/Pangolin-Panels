@@ -31,9 +31,7 @@ module.exports = {
         }
 
         if (attempts >= 2) {
-          throw new Error(
-            "Failed to connect to Kubernetes Cluster: Retries exceeded"
-          );
+          throw new Error("Failed to connect to the cluster: Retries exceeded");
         } else {
           global.share.client = client;
         }

@@ -33,7 +33,7 @@ export class KubeInstance {
     const client = await kc.makeApiClient(CoreV1Api);
 
     if (client === null || client === undefined) {
-      throw new Error("Failed to create client for Kubernetes Cluster");
+      throw new Error("Failed to create client for Kubernetes cluster");
     }
 
     try {
@@ -41,10 +41,11 @@ export class KubeInstance {
       await client.listNode();
     } catch (err) {
       throw new Error(
-        "Failed to connect to Kubernetes Cluster: " + err.message
+        "Failed to connect to Kubernetes cluster: " + err.message
       );
     }
 
+    this.client = client;
     return client;
   }
 

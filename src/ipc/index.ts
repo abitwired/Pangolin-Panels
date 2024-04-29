@@ -3,7 +3,6 @@ const { minimize } = require("./electron/minimize");
 const { getNamespaces } = require("./kubernetes/namespaces");
 const { connect } = require("./kubernetes/connect");
 const { clusters } = require("./kubernetes/clusters");
-const { client } = require("./kubernetes/client");
 
 module.exports = {
   quit,
@@ -11,5 +10,4 @@ module.exports = {
   getNamespaces,
   connect,
   clusters,
-  client,
 };

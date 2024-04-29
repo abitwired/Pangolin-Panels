@@ -5,12 +5,16 @@ export type AppContextType = {
     status: "connected" | "connecting" | "disconnected" | "error";
     message?: string;
   };
+  router: {
+    current?: string;
+  };
 };
 
 const initialState: AppContextType = {
   client: {
     status: "disconnected",
   },
+  router: {},
 };
 
 export const AppContext = createContext(null);
