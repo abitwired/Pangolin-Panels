@@ -1,23 +1,22 @@
-import { createContext, useReducer } from "react";
+import { createContext, useContext, useReducer, useState } from "react";
 
 export type AppContextType = {
-  k8s: {
-    client: {
-      status: "connected" | "connecting" | "disconnected";
-    };
+  client: {
+    status: "connected" | "connecting" | "disconnected" | "error";
+    message?: string;
   };
 };
 
 const initialState: AppContextType = {
-  k8s: {
-    client: {
-      status: "disconnected",
-    },
+  client: {
+    status: "disconnected",
   },
 };
 
 export const AppContext = createContext(null);
 export const AppDispatchContext = createContext(null);
+
+export const useAppContext = () => useContext(AppContext);
 
 /**
  * Reducer function to update the state based on the action
@@ -27,14 +26,10 @@ export const AppDispatchContext = createContext(null);
  */
 export function reducer(state: AppContextType, action: Action) {
   switch (action.type) {
-    case ActionTypes.K8S_CLIENT_STATUS: {
+    case ActionTypes.CLIENT_STATUS: {
       return {
         ...state,
-        k8s: {
-          client: {
-            status: action.payload,
-          },
-        },
+        client: action.payload,
       };
     }
     default: {
@@ -44,7 +39,7 @@ export function reducer(state: AppContextType, action: Action) {
 }
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
-  const [appContext] = useReducer(reducer, initialState);
+  const appContext = useReducer(reducer, initialState);
 
   return (
     <AppContext.Provider value={appContext}>{children}</AppContext.Provider>
@@ -52,12 +47,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 }
 
 export enum ActionTypes {
-  K8S_CLIENT_STATUS,
+  CLIENT_STATUS,
 }
 
-interface SetK8sApiAction {
-  type: ActionTypes.K8S_CLIENT_STATUS;
-  payload: AppContextType["k8s"]["client"]["status"];
+interface SetClientAction {
+  type: ActionTypes.CLIENT_STATUS;
+  payload: AppContextType["client"];
 }
 
-type Action = SetK8sApiAction;
+type Action = SetClientAction;

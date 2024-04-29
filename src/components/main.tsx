@@ -1,12 +1,10 @@
-import { Sidebar } from "./panels/sidebar";
-import { Body } from "./panels/body";
-import { Frame } from "./panels/frame";
+import { Sidebar } from "./sidebar/Sidebar";
+import { Body } from "./panels/Body";
 
 const Main = () => {
   return (
-    <div className="rounded-lg overflow-hidden">
-      <Frame />
-      <div className="flex" style={{ position: "relative", top: "40px" }}>
+    <div className="overflow-hidden">
+      <div className="flex">
         <Sidebar />
         <Body />
       </div>

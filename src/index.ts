@@ -21,12 +21,7 @@ const createWindow = (): void => {
     height: 800,
     width: 1200,
     transparent: true,
-    frame: false,
-    maximizable: true,
-    minimizable: true,
     autoHideMenuBar: true,
-    titleBarStyle: "hidden",
-    titleBarOverlay: true,
     icon: "./src/assets/icons/favicon.png",
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,

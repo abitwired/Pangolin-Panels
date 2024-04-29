@@ -1,11 +1,11 @@
-import { CoreV1Api } from "@kubernetes/client-node";
 import { ipcMain, ContextBridge } from "electron";
+import { KubeInstance } from "./types/kubeInstance";
 
 export {};
 declare global {
   var share: {
     ipcMain: typeof ipcMain;
-    client?: CoreV1Api;
+    client?: KubeInstance;
   };
   interface Window {
     electron: ContextBridge;
