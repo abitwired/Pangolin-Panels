@@ -13,7 +13,8 @@ import { rendererConfig } from "./webpack.renderer.config";
 
 const config: ForgeConfig = {
   packagerConfig: {
-    icon: "./src/assets/icons/favicon",
+    icon: "./src/assets/icons/favicon.png",
+    executableName: "pangolin-panel",
     asar: true,
   },
   rebuildConfig: {},
@@ -23,7 +24,9 @@ const config: ForgeConfig = {
     new MakerRpm({}),
     new MakerDeb({
       options: {
-        icon: "./src/assets/icons/favicon",
+        name: "pangolin-panel",
+        productName: "Pangolin Panel",
+        icon: "./src/assets/icons/favicon.png",
       },
     }),
   ],
