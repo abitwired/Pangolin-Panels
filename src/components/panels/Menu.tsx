@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export const Menu = () => {
   return (
     <div className="bg-slate-800 text-white w-full h-15">
@@ -9,15 +11,21 @@ export const Menu = () => {
           <button className="text-white bg-slate-800 hover:bg-slate-700 p-2 rounded-md">
             Namespaces
           </button>
-          <button className="text-white bg-slate-800 hover:bg-slate-700 p-2 rounded-md">
+          <Link
+            to="/pods"
+            className="text-white bg-slate-800 hover:bg-slate-700 p-2 rounded-md"
+          >
             Pods
-          </button>
+          </Link>
           <button className="text-white bg-slate-800 hover:bg-slate-700 p-2 rounded-md">
             Deployments
           </button>
-          <button className="text-white bg-slate-800 hover:bg-slate-700 p-2 rounded-md">
+          <Link
+            to="/services"
+            className="text-white bg-slate-800 hover:bg-slate-700 p-2 rounded-md"
+          >
             Services
-          </button>
+          </Link>
           <button className="text-white bg-slate-800 hover:bg-slate-700 p-2 rounded-md">
             ConfigMaps
           </button>

@@ -1,14 +1,15 @@
 import { Sidebar } from "./sidebar/Sidebar";
 import { Body } from "./panels/Body";
+import { HashRouter } from "react-router-dom";
 
 const Main = () => {
   return (
-    <div>
-      <div className="flex min-h-screen max-h-screen ">
+    <HashRouter>
+      <div className="flex min-h-screen">
         <Sidebar />
         <Body />
       </div>
-    </div>
+    </HashRouter>
   );
 };
 
