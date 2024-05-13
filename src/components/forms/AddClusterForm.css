@@ -1,0 +1,3 @@
+.add-cluster-form::backdrop {
+  background-color: var(--main-color);
+}

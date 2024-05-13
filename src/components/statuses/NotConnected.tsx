@@ -5,14 +5,14 @@ export const NotConnected = () => {
   const [context] = useAppContext();
 
   return (
-    <div className="flex flex-col flex justify-center h-screen content-center items-center gap-1 overflow-x-hidden overflow-y-auto">
-      <div className="flex justify-center w-full content-center items-center gap-1">
-        <DisconnectedSvg fill="#ff3c3c" className="max-w-20 p-2" />
+    <div className="flex justify-center w-full h-screen gap-1 overflow-x-hidden overflow-y-auto">
+      <DisconnectedSvg fill="#ff3c3c" className="max-w-20 p-2" />
+      <div className="flex flex-col justify-center content-center gap-1">
         <p className="text-center text-3xl">
           Disconnected from the Kubernetes cluster
         </p>
+        <p className="text-center text-md">{context.client.message ?? ""}</p>
       </div>
-      <p className="text-center text-md">{context.client.message ?? ""}</p>
     </div>
   );
 };
